@@ -13,5 +13,8 @@ public class Main {
         }
 
         List<String> values= (List<String>) tree.inOrderTraversal();
+        for(String s:values){
+            System.out.println(s);
+        }
     }
 }

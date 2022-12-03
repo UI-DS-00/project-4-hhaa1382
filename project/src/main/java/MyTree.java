@@ -77,11 +77,11 @@ public class MyTree {
 
     public void addChild(Node parent,char element){
         Node child=new Node(element);
-        parent.getChildren().add(child);
         child.setParent(parent);
         child.setRight(null);
 
         int index=parent.getChildren().size();
+
         if(index>0){
             Node leftNode=parent.getChildren().get(index-1);
             child.setLeft(leftNode);
@@ -90,6 +90,7 @@ public class MyTree {
         else{
             child.setLeft(null);
         }
+        parent.getChildren().add(child);
 
         size++;
     }
@@ -124,5 +125,75 @@ public class MyTree {
         size--;
     }
 
+    public Iterable<String> inOrderTraversal(){
+        List<String> values=new ArrayList<>();
+        StringBuilder tempReader=new StringBuilder();
 
+        Node tempNode;
+
+        if(root.getChildren().size()>0) {
+            tempNode = root.getChildren().get(0);
+
+            while (tempNode!=null){
+                tempReader.append(tempNode.getElement());
+                if(tempNode.getChildren().size()>0){
+                    tempNode=tempNode.getChildren().get(0);
+                }
+                else{
+                    values.add(tempReader.toString());
+                    while (tempNode.getRight()==null){
+                        tempReader.delete(tempReader.length()-1,tempReader.length());
+                        tempNode=tempNode.getParent();
+
+                        if(tempNode==root){
+                            break;
+                        }
+                    }
+                    if(tempReader.length()>0) {
+                        tempReader.delete(tempReader.length() - 1, tempReader.length());
+                    }
+                    tempNode=tempNode.getRight();
+                }
+            }
+        }
+
+        return values;
+    }
+
+    public void addWord(String word){
+        Node tempNode;
+        int counter=0;
+
+        if(root.getChildren().size()>0){
+            tempNode= root.getChildren().get(0);
+
+            while (true){
+                if(tempNode.getElement()==word.charAt(counter)){
+                    counter++;
+                    if(tempNode.getChildren().size()>0){
+                        tempNode=tempNode.getChildren().get(0);
+                    }
+                    else{
+                        break;
+                    }
+                }
+                else{
+                    if(tempNode.getRight()==null){
+                        tempNode=tempNode.getParent();
+                        break;
+                    }
+                    tempNode=tempNode.getRight();
+                }
+            }
+        }
+        else{
+            tempNode=root;
+        }
+
+        for(int i=counter;i<word.length();i++){
+            this.addChild(tempNode,word.charAt(i));
+            int index=tempNode.getChildren().size();
+            tempNode= tempNode.getChildren().get(index-1);
+        }
+    }
 }
