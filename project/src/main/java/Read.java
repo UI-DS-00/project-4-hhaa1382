@@ -20,11 +20,13 @@ public class Read {
         File[] filesReading=file.listFiles();
 
         if(filesReading!=null) {
-//            MyTree[] temp=new MyTree[filesReading.length];
             MyTree temp=new MyTree();
             temp.addRoot('s');
 
-            for (int i=0;i<2;i++) {
+//            File tempFile=new File("C:\\Users\\Salam\\Desktop\\Homework\\Data structure\\Tree Project\\data\\EnglishData\\58047");
+//            String text=getTrueString(readWords(tempFile));
+//            setValues(temp,text,"58047");
+            for (int i=0;i<filesReading.length;i++) {
                 String text=getTrueString(readWords(filesReading[i]));
                 setValues(temp,text,filesReading[i].getName());
             }
@@ -40,7 +42,9 @@ public class Read {
         String temp[]=text.split(" ");
 
         for(int i=0;i<temp.length;i++){
-            tree.addWord(temp[i],fileName);
+            if(!temp[i].isBlank()) {
+                tree.addWord(temp[i], fileName);
+            }
         }
     }
 

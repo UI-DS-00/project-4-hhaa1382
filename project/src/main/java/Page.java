@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Page extends JFrame {
@@ -45,15 +46,19 @@ public class Page extends JFrame {
 
         result=new JTextArea();
         result.setEditable(false);
-        result.setPreferredSize(new Dimension(500,200));
-        result.setFont(new Font(Font.SANS_SERIF,Font.BOLD,24));
-        layout.putConstraint(SpringLayout.NORTH,result,100,SpringLayout.SOUTH,btnSearchWord);
-        layout.putConstraint(SpringLayout.WEST,result,0,SpringLayout.WEST,this.getContentPane());
+        result.setFont(new Font(Font.SANS_SERIF,Font.PLAIN,24));
+
+        JScrollPane scrollPane = new JScrollPane(result);
+        scrollPane.setPreferredSize(new Dimension(450,100));
+        layout.putConstraint(SpringLayout.NORTH,scrollPane,100,SpringLayout.SOUTH,btnSearchWord);
+        layout.putConstraint(SpringLayout.WEST,scrollPane,0,SpringLayout.WEST,this.getContentPane());
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
         this.add(lblText);
         this.add(text);
         this.add(btnSearchWord);
-        this.add(result);
+        this.add(scrollPane);
         this.add(btnSearchLists);
         this.setVisible(true);
     }
@@ -77,7 +82,6 @@ public class Page extends JFrame {
     private String checkSearchText(String text){
         text=checkText(text);
         List<String> tempSpace=spaceListCheck(checkSpace(text));
-        System.out.println(tempSpace);
         minusListCheck(checkMinus(text),tempSpace);
         plusListCheck(checkPlus(text),tempSpace);
         return tempSpace.toString();
@@ -106,7 +110,7 @@ public class Page extends JFrame {
             String[] values = text.split(" ");
             if (values.length > 0) {
                 List<String> first = listCopy(tree.getListsName(values[0]));
-                for (int i = 1; i < values.length - 1; i++) {
+                for (int i = 1; i < values.length; i++) {
                     List<String> temp = tree.getListsName(values[i]);
                     for (int j = 0; j < temp.size(); j++) {
                         if (!first.contains(temp.get(j))) {
@@ -115,9 +119,9 @@ public class Page extends JFrame {
                     }
                 }
 
-                for (int i = 0; i < listName.size(); i++) {
+                for (int i=0;i<listName.size();i++) {
                     if (!first.contains(listName.get(i))) {
-                        first.remove(listName.get(i));
+                        listName.remove(i);
                         i--;
                     }
                 }
@@ -126,12 +130,12 @@ public class Page extends JFrame {
     }
 
     private void minusListCheck(String text,List<String> name){
-        String[] values=text.split(" ");
-        for(int i=1;i<values.length-1;i++){
-            List<String> temp=tree.getListsName(values[i]);
-            for(int j=0;j<temp.size();j++){
-                if(!name.contains(temp.get(j))){
-                    name.remove(name.get(j));
+        if(!text.isBlank()) {
+            String[] values = text.split(" ");
+            for (int i = 0; i < values.length; i++) {
+                List<String> temp = tree.getListsName(values[i]);
+                for (int j = 0; j < temp.size(); j++) {
+                    name.remove(temp.get(j));
                 }
             }
         }
@@ -206,11 +210,11 @@ public class Page extends JFrame {
 
         for(int i=1;i<tempValues.length;i++){
             if(!tempValues[i].contains("+")){
-                temp.append(tempValues[i]).append(",");
+                temp.append(tempValues[i]).append(" ");
             }
             else{
                 String[] tempSplit=tempValues[i].split("\\+");
-                temp.append(tempSplit[0]).append(",");
+                temp.append(tempSplit[0]).append(" ");
             }
         }
 

@@ -4,17 +4,8 @@ import java.util.List;
 
 public class Main {
     static MyTree tree;
-
-    static {
-        try {
-            tree = Read.readData();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
     public static void main(String[] args) throws FileNotFoundException {
-        System.out.println(checkSearchText("the+some"));
+        new Page();
     }
 
     private static String checkSearchText(String text){
@@ -33,7 +24,7 @@ public class Main {
                 List<String> temp = tree.getListsName(values[i]);
                 for (int j = 0; j < first.size(); j++) {
                     if (!temp.contains(first.get(j))) {
-                        first.remove(j);
+                        first.remove(first.get(j));
                         j--;
                     }
                 }
@@ -48,7 +39,7 @@ public class Main {
             String[] values = text.split(" ");
             if (values.length > 0) {
                 List<String> first = listCopy(tree.getListsName(values[0]));
-                for (int i = 1; i < values.length - 1; i++) {
+                for (int i = 1; i < values.length; i++) {
                     List<String> temp = tree.getListsName(values[i]);
                     for (int j = 0; j < temp.size(); j++) {
                         if (!first.contains(temp.get(j))) {
@@ -69,12 +60,10 @@ public class Main {
 
     private static void minusListCheck(String text,List<String> name){
         String[] values=text.split(" ");
-        for(int i=1;i<values.length-1;i++){
+        for(int i=0;i<values.length;i++){
             List<String> temp=tree.getListsName(values[i]);
             for(int j=0;j<temp.size();j++){
-                if(!name.contains(temp.get(j))){
-                    name.remove(name.get(j));
-                }
+                name.remove(temp.get(j));
             }
         }
     }
@@ -148,11 +137,11 @@ public class Main {
 
         for(int i=1;i<tempValues.length;i++){
             if(!tempValues[i].contains("+")){
-                temp.append(tempValues[i]).append(",");
+                temp.append(tempValues[i]).append(" ");
             }
             else{
                 String[] tempSplit=tempValues[i].split("\\+");
-                temp.append(tempSplit[0]).append(",");
+                temp.append(tempSplit[0]).append(" ");
             }
         }
 
