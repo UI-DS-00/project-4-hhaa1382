@@ -213,7 +213,7 @@ public class MyTree {
         tempNode.addWordList(listName);
     }
 
-    public boolean searchWord(String word){
+    private Node getSearchNode(String word){
         Node tempNode;
         int counter=0;
 
@@ -226,12 +226,17 @@ public class MyTree {
 
                     if(tempNode.getChildren().size()>0){
                         if(counter==word.length()){
-                            return true;
+                            return tempNode;
                         }
                         tempNode=tempNode.getChildren().get(0);
                     }
                     else{
-                        return counter == word.length();
+                        if(counter == word.length()){
+                            return tempNode;
+                        }
+                        else{
+                            return null;
+                        }
                     }
                 }
                 else{
@@ -240,6 +245,21 @@ public class MyTree {
             }
         }
 
-        return false;
+        return null;
+    }
+
+    public boolean searchWord(String word){
+        Node temp=getSearchNode(word);
+        return temp!=null;
+    }
+
+    public List<String> getListsName(String word){
+        Node temp=getSearchNode(word);
+        if(temp==null){
+            return new ArrayList<>();
+        }
+        else{
+            return temp.getWordList();
+        }
     }
 }

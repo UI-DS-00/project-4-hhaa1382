@@ -14,7 +14,9 @@ public class Main {
             tree.addWord(temp[i],"58043");
         }
 
-        System.out.println(tree.searchWord("Attack"));
+        System.out.println(tree.searchWord("guaranteedDoug"));
+        List<String> names=tree.getListsName("GuaranteedDoug");
+        System.out.println(names.size());
     }
 
     private static String getTrueString(String text){
