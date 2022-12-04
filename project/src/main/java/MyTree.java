@@ -210,7 +210,9 @@ public class MyTree {
             tempNode= tempNode.getChildren().get(index-1);
         }
 
-        tempNode.addWordList(listName);
+        if(!tempNode.getWordList().contains(listName)) {
+            tempNode.addWordList(listName);
+        }
     }
 
     private Node getSearchNode(String word){
