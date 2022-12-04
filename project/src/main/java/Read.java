@@ -23,9 +23,6 @@ public class Read {
             MyTree temp=new MyTree();
             temp.addRoot('s');
 
-//            File tempFile=new File("C:\\Users\\Salam\\Desktop\\Homework\\Data structure\\Tree Project\\data\\EnglishData\\58047");
-//            String text=getTrueString(readWords(tempFile));
-//            setValues(temp,text,"58047");
             for (int i=0;i<filesReading.length;i++) {
                 String text=getTrueString(readWords(filesReading[i]));
                 setValues(temp,text,filesReading[i].getName());
