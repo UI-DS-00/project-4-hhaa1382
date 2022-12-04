@@ -24,7 +24,7 @@ public class Read {
             MyTree temp=new MyTree();
             temp.addRoot('s');
 
-            for (int i=0;i<1;i++) {
+            for (int i=0;i<2;i++) {
                 String text=getTrueString(readWords(filesReading[i]));
                 setValues(temp,text,filesReading[i].getName());
             }
