@@ -6,10 +6,12 @@ public class MyTree {
         private char element;
         private Node parent,left,right;
         private final List<Node> children;
+        private final List<String> wordList;
 
         public Node(char element) {
             this.element = element;
             children=new ArrayList<>();
+            wordList=new ArrayList<>();
         }
 
         public char getElement() {
@@ -46,6 +48,14 @@ public class MyTree {
 
         public void setRight(Node right) {
             this.right = right;
+        }
+
+        public List<String> getWordList() {
+            return wordList;
+        }
+
+        public void addWordList(String name){
+            wordList.add(name);
         }
     }
 
@@ -160,7 +170,7 @@ public class MyTree {
         return values;
     }
 
-    public void addWord(String word){
+    public void addWord(String word,String listName){
         Node tempNode;
         int counter=0;
 
@@ -170,6 +180,10 @@ public class MyTree {
             while (true){
                 if(tempNode.getElement()==word.charAt(counter)){
                     counter++;
+                    if(counter==word.length()){
+                        break;
+                    }
+
                     if(tempNode.getChildren().size()>0){
                         tempNode=tempNode.getChildren().get(0);
                     }
@@ -195,5 +209,7 @@ public class MyTree {
             int index=tempNode.getChildren().size();
             tempNode= tempNode.getChildren().get(index-1);
         }
+
+        tempNode.addWordList(listName);
     }
 }
