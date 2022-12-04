@@ -11,13 +11,10 @@ public class Main {
         String temp[]=text.split(" ");
 
         for(int i=0;i<temp.length;i++){
-            tree.addWord(temp[i],"57111");
+            tree.addWord(temp[i],"58043");
         }
 
-        List<String> values= (List<String>) tree.inOrderTraversal();
-        for(String s:values){
-            System.out.println(s);
-        }
+        System.out.println(tree.searchWord("Attack"));
     }
 
     private static String getTrueString(String text){
@@ -28,14 +25,14 @@ public class Main {
             if(Character.isLetter(c)){
                 temp.append(c);
             }
-            else if(c==' ' || c=='\''){
-                if(i>0 && Character.isLetter(text.charAt(i-1))){
-                    temp.append(c);
+            else {
+                char tempChar=' ';
+                if (c == '\'') {
+                    tempChar=c;
                 }
-            }
-            else{
-                if(i>0 && Character.isLetter(text.charAt(i-1))){
-                    temp.append(' ');
+
+                if (i > 0 && Character.isLetter(text.charAt(i - 1))) {
+                    temp.append(tempChar);
                 }
             }
         }

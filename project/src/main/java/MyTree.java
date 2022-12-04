@@ -212,4 +212,34 @@ public class MyTree {
 
         tempNode.addWordList(listName);
     }
+
+    public boolean searchWord(String word){
+        Node tempNode;
+        int counter=0;
+
+        if(root.getChildren().size()>0){
+            tempNode=root.getChildren().get(0);
+            while(tempNode!=null){
+                char c=word.charAt(counter);
+                if(tempNode.getElement()==c){
+                    counter++;
+
+                    if(tempNode.getChildren().size()>0){
+                        if(counter==word.length()){
+                            return true;
+                        }
+                        tempNode=tempNode.getChildren().get(0);
+                    }
+                    else{
+                        return counter == word.length();
+                    }
+                }
+                else{
+                    tempNode=tempNode.getRight();
+                }
+            }
+        }
+
+        return false;
+    }
 }
